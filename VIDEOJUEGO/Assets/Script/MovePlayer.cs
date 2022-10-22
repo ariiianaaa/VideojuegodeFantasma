@@ -10,6 +10,7 @@ public class MovePlayer : MonoBehaviour
     public float forceJump;
     public Transform _initialPosition;
     public GameObject[] plataforms;
+    [SerializeField] GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +26,10 @@ public class MovePlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Danger"))
+        if (other.CompareTag("Danger") && gameManager.lifes > 0)
         {
             transform.position = _initialPosition.position;
+            gameManager.lifes -= 1;
         }
         if (other.CompareTag("PowerUpJump"))
         {
